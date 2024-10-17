@@ -4,7 +4,7 @@ import {
     PLATFORM_ID,
     ViewEncapsulation,
 } from '@angular/core';
-import { environment } from "../../../../environments/environment";
+import { environment } from "../../../environments/environment";
 
 @Component({
     selector: 'app-home',
@@ -21,5 +21,5 @@ export class HomeComponent {
     expressjs = environment.expressjs;
     mongoDb = environment.mongoDb;
 
-    constructor(@Inject(PLATFORM_ID) private platformId: object) {}
+    constructor(@Inject(PLATFORM_ID) private platformId: object) { }
 }

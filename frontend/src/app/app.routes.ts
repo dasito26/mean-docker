@@ -7,7 +7,16 @@ export const routes: Routes = [
         children: [
             {
                 path: '',
-                loadChildren: () => import('app/feature/user/user.routes'),
+                loadChildren: () => import('app/feature/home/home.routes'),
+            },
+        ],
+    },
+    {
+        path: 'dashboard',
+        children: [
+            {
+                path: '',
+                loadChildren: () => import('app/feature/home/home.routes'),
             },
         ],
     },

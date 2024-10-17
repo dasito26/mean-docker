@@ -74,7 +74,7 @@ export class ProfileComponent implements OnInit {
                 user.token = this.user.token;
                 localStorage.setItem('currentUser', JSON.stringify(user));
             },
-            (error) => {}
+            (error) => { }
         );
     }
 
@@ -93,7 +93,7 @@ export class ProfileComponent implements OnInit {
                     this.toastrService.success('Profile updated successful');
                     this.router.navigate(['/login']);
                 },
-                (error) => {}
+                (error) => { }
             );
     }
 

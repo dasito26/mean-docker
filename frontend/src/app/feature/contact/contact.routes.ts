@@ -4,7 +4,7 @@ import { ContactDetailsComponent } from './contact-details/contact-details.compo
 import { ContactFormComponent } from './contact-form/contact-form.component';
 import { ContactListComponent } from './contact-list/contact-list.component';
 import { ContactDetailsResolver } from './contact.resolver';
-import { LayoutComponent } from "../../@core/layout/layout.component";
+import { LayoutComponent } from "../../@core/layout/private/layout.component";
 export default [
     {
         path: '',
