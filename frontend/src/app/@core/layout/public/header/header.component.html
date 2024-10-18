@@ -1,99 +1,57 @@
-<header class="navbar navbar-expand-lg navbar-dark fixed-top nga-navbar">
-    <nav class="container" aria-label="Main navigation">
-        <a routerLink="/" class="navbar-brand" alt="Accueil">
-            <span class="nga-logo mx-1" aria-label="Contacts">Contacts System</span>
-        </a>
-        <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarCollapse"
-            aria-controls="navbarCollapse"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-        >
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="navbar-collapse collapse" id="navbarCollapse">
-            <ul class="navbar-nav mx-auto">
-                <!-- <li class="nav-item">
-                    <a
-                        class="nav-link nga-nav-link"
-                        aria-current="page"
-                        routerLink="/"
-                    >
-                        <i class="fab fa-angular me-1"></i>Features</a
-                    >
-                </li> -->
-            </ul>
-            <ul class="navbar-nav me-auto">
-                <!-- <li class="nav-item">
-                    <a
-                        class="nav-link nga-nav-link"
-                        aria-current="page"
-                        routerLink="/about"
-                    >
-                        <i class="far fa-question-circle me-1"></i>About</a
-                    >
-                </li> -->
-                <li class="nav-item">
-                    <a
-                        class="nav-link nga-nav-link"
-                        aria-current="page"
-                        routerLink="/contacts"
-                    >
-                        <i class="fas fa-envelope me-1"></i>Contacts</a
-                    >
-                </li>
-                <li class="nav-item">
-                    <a
-                        class="nav-link nga-nav-link"
-                        aria-current="page"
-                        target="_blank"
-                        href="https://github.com/nitin27may"
+<header>
+    <div class="fusion-header">
+        <div class="fusion-row">
+            <div class="d-flex justify-content-center flex-nowrap" data-margin-top=" 31px" data-margin-bottom="31px"
+                data-margin-left="0px" data-margin-right="0px">
+                <a class="fusion-logo-link" href="https://www.siai.gob.mx/">
 
-                    >
-                        <i class="fab fa-github me-1"></i>Github
-                    </a>
-                </li>
-                <li class="nav-item dropdown" ngbDropdown *ngIf="user">
-                    <a
-                        href="javascript:void(0)"
-                        id="basic-link"
-                        class="nav-link dropdown-toggle"
-                        ngbDropdownToggle
-                    >
-                        <i class="fa fa-user"></i> {{user?.firstName}} {{user?.lastName}}
-                        <b class="caret"></b>
-                    </a>
-                    <div
-                        id="basic-link-dropdown"
-                        class="dropdown-menu dropdown-menu-right"
-                        ngbDropdownMenu
-                    >
-                        <a
-                            class="dropdown-item"
-                            [routerLink]="['/profile']"
-                            routerLinkActive="router-link-active"
-                            ngbDropdownItem
-                        >
-                            <i class="fa fa-fw fa-user"></i> Profile
-                        </a>
-                        <a
-                            href="javascript:void(0);"
-                            class="dropdown-item"
-                            (click)="logOut()"
-                            ngbDropdownItem
-                        >
-                            <i class="fa fa-fw fa-power-off"></i>Log Out
-                        </a>
-                    </div>
-                </li>
-            </ul>
-            <form class="d-flex" *ngIf="!user">
+                    <!-- standard logo -->
+                    <img src="https://www.siai.gob.mx/wp-content/uploads/2020/01/siai_logo.png"
+                        srcset="https://www.siai.gob.mx/wp-content/uploads/2020/01/siai_logo.png 1x" width="867" height="75"
+                        alt="Subdirección de integración y Actualización de la Información Logo" data-retina_logo_url=""
+                        class="d-none d-sm-none d-md-none d-lg-block m-4">
 
+                    <!-- mobile logo -->
+                    <img src="https://www.siai.gob.mx/wp-content/uploads/2020/01/siai-logo_ver60.png"
+                        srcset="https://www.siai.gob.mx/wp-content/uploads/2020/01/siai-logo_ver60.png 1x, https://www.siai.gob.mx/wp-content/uploads/2020/01/siai-logo_ver120.png 2x"
+                        width="170" height="60" style="max-height:60px;height:auto;"
+                        alt="Subdirección de integración y Actualización de la Información Logo"
+                        data-retina_logo_url="https://www.siai.gob.mx/wp-content/uploads/2020/01/siai-logo_ver120.png"
+                        class="d-sm-block d-md-block d-lg-none m-3">
+                </a>
+            </div>
+        </div>
+    </div>
+    <nav class="navbar navbar-expand-lg navbar-dark nga-navbar">
+        <div class="container-fluid">
+            <a class="navbar-brand d-sm-block d-md-block d-lg-none" href="#"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+                aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarScroll">
+                <ul class="navbar-nav m-auto">
+                    <li class="nav-item px-5">
+                        <a class="nav-link nga-nav-link" aria-current="page" routerLink="/">
+                            INICIO</a>
+                    </li>
+                    <li class="nav-item px-5">
+                        <a class="nav-link nga-nav-link" aria-current="page" routerLink="/">
+                            PUSDB</a>
+                    </li>
+                    <li class="nav-item px-5">
+                        <a class="nav-link nga-nav-link" aria-current="page" routerLink="/">
+                            TRANSPARENCIA</a>
+                    </li>
+                    <li class="nav-item px-5">
+                        <a class="nav-link nga-nav-link" aria-current="page" routerLink="/">
+                            AVISO DE PRIVACIDAD</a>
+                    </li>
+                </ul>
+                <form class="d-flex" *ngIf="!user">
+                </form>
+            </div>
 
-            </form>
         </div>
     </nav>
 </header>
