@@ -5,11 +5,16 @@ import {
     ViewEncapsulation,
 } from '@angular/core';
 import { environment } from "../../../environments/environment";
+import { SearchComponent } from './search/search.component';
+import { ResultComponent } from "./result/result.component";
 
 @Component({
     selector: 'app-home',
     standalone: true,
-    imports: [],
+    imports: [
+        SearchComponent,
+        ResultComponent,
+    ],
     templateUrl: './home.component.html',
     styleUrl: './home.component.css',
     encapsulation: ViewEncapsulation.None,
