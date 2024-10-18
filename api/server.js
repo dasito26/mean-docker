@@ -5,7 +5,7 @@ const environment = require("./config/environment");
 let cors = require("cors");
 let path = require("path");
 let bodyParser = require("body-parser");
-const { expressjwt: expressjwt } = require("express-jwt");
+var { expressjwt: expressjwt } = require("express-jwt");
 // Import Mongoose
 let mongoose = require("mongoose");
 
@@ -51,18 +51,13 @@ const allowedExt = [
   ".txt"
 ];
 
-// Import routes
-let apiRoutes = require("./api-routes");
-// Use Api routes in the App
-app.use("/api", apiRoutes);
-
-app.get("*", (req, res) => {
+/* app.get("*", (req, res) => {
   if (allowedExt.filter((ext) => req.url.indexOf(ext) > 0).length > 0) {
     res.sendFile(path.resolve(`public/${req.url}`));
   } else {
     res.sendFile(path.resolve("public/index.html"));
   }
-});
+}); */
 
 // use JWT auth to secure the api, the token can be passed in the authorization header or querystring
 app.use(
@@ -82,18 +77,18 @@ app.use(
     }
   }).unless({
     path: [
-      "/api/user/authenticate",
-      "/api/users",
-      "/index.html",
-      "/*.js",
-      "/*.css"
+      { url: "/api/user/authenticate", methods: ["POST"] },
+      { url: "/index.html", methods: ["GET"] },
+      { url: /\.js$/, methods: ["GET"] },
+      { url: /\.css$/, methods: ["GET"] }
     ]
   })
 );
 
-
-
-
+// Import routes
+let apiRoutes = require("./api-routes");
+// Use Api routes in the App
+app.use("/api", apiRoutes);
 
 const HOST = "0.0.0.0";
 const port = Number(process.env.EXPRESS_PORT) || 3000;
