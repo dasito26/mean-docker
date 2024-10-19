@@ -1,6 +1,10 @@
 var mongoose = require("mongoose");
 
 var distritoSchema = mongoose.Schema({
+  id: {
+    type: Number,
+    required: true
+  },
   cve_mpio_full: {
     type: String,
     required: true
@@ -16,6 +20,10 @@ var distritoSchema = mongoose.Schema({
   cabecera: {
     type: Number,
     required: true
+  },
+  municipio: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "municipio"
   }
 });
 

@@ -1,6 +1,10 @@
 var mongoose = require("mongoose");
 
 var municipioSchema = mongoose.Schema({
+  id: {
+    type: Number,
+    required: true
+  },
   cve_edo: {
     type: String,
     required: true

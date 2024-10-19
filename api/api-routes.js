@@ -41,6 +41,7 @@ router
 var beneficiarioController = require("./controllers/beneficiario.controller");
 
 // beneficiario routes
+router.route("/beneficiarios").post(beneficiarioController.index);
 router.route("/beneficiarios/:page/:limit").post(beneficiarioController.index);
 
 // Export API routes

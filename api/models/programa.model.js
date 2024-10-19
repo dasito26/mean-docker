@@ -2,6 +2,10 @@ const { response } = require("express");
 var mongoose = require("mongoose");
 
 var programaSchema = mongoose.Schema({
+  id: {
+    type: Number,
+    required: true
+  },
   prefijo: {
     type: String,
     required: true
@@ -29,6 +33,10 @@ var programaSchema = mongoose.Schema({
   area_id: {
     type: Number,
     required: true
+  },
+  area: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "area"
   }
 });
 

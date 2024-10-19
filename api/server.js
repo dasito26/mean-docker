@@ -81,7 +81,7 @@ app.use(
       { url: "/index.html", methods: ["GET"] },
       { url: /\.js$/, methods: ["GET"] },
       { url: /\.css$/, methods: ["GET"] },
-      { url: /^\/api\/beneficiarios\/(.*)$/, methods: ["GET"] }
+      { url: /^\/api\/beneficiarios(.*)$/, methods: ["POST"] }
     ]
   })
 );

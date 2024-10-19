@@ -1,6 +1,10 @@
 var mongoose = require("mongoose");
 
 var areaSchema = mongoose.Schema({
+  id: {
+    type: Number,
+    required: true
+  },
   nombre: {
     type: String,
     required: true

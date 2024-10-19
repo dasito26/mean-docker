@@ -8,6 +8,8 @@ var bcrypt = require("bcryptjs");
 const environment = require("../config/environment");
 
 exports.index = function (req, res) {
+  const page = req.params.page ?? 1;
+  const limit = req.params.limit ?? 10;
   Beneficiario.page(
     function (err, beneficiarios) {
       if (err) {
@@ -15,15 +17,16 @@ exports.index = function (req, res) {
           status: "error",
           error: "Bad Request."
         });
+      } else {
+        res.json({
+          status: "success",
+          message: "Users retrieved successfully",
+          data: beneficiarios
+        });
       }
-      res.json({
-        status: "success",
-        message: "Users retrieved successfully",
-        data: beneficiarios
-      });
     },
-    req.params.page,
-    req.params.limit
+    page,
+    limit
   );
 };
 

@@ -1,5 +1,8 @@
+const { path } = require("app-root-path");
 var mongoose = require("mongoose");
 const mongoosePaginate = require("mongoose-paginate-v2");
+const Programa = require("./programa.model");
+const Municipio = require("./municipio.model");
 
 var beneficiarioSchema = mongoose.Schema({
   ejercicio: {
@@ -30,6 +33,10 @@ var beneficiarioSchema = mongoose.Schema({
     type: Number,
     required: true
   },
+  programa: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: Programa
+  },
   monto: {
     type: Number,
     required: true
@@ -42,9 +49,9 @@ var beneficiarioSchema = mongoose.Schema({
     type: Number,
     required: true
   },
-  area_id: {
-    type: Number,
-    required: true
+  municipio: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: Municipio
   }
 });
 
@@ -61,5 +68,16 @@ module.exports.get = function (callback, limit) {
 
 module.exports.page = function (callback, page, limit) {
   var offset = (page - 1) * limit;
-  Beneficiario.paginate({}, { offset: offset, limit: limit }, callback);
+  Beneficiario.paginate(
+    {},
+    {
+      offset: offset,
+      limit: limit,
+      populate: [
+        { path: "programa", select: "nombre" },
+        { path: "municipio", select: "nombre" }
+      ]
+    },
+    callback
+  );
 };
