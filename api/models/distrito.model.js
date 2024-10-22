@@ -29,5 +29,9 @@ var distritoSchema = mongoose.Schema({
 
 var Distrito = (module.exports = mongoose.model("distrito", distritoSchema));
 module.exports.get = function (callback, limit) {
-  Distrito.find(callback).limit(limit);
+  Distrito.limit(limit);
+};
+
+module.exports.getDistritos = function (callback) {
+  Distrito.distinct("distrito", callback);
 };

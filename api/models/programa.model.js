@@ -44,3 +44,7 @@ var Programa = (module.exports = mongoose.model("programa", programaSchema));
 module.exports.get = function (callback, limit) {
   Programa.find(callback).limit(limit);
 };
+
+module.exports.getProgramasArea = function (callback, area) {
+  Programa.find({ area: area }, null, callback);
+};

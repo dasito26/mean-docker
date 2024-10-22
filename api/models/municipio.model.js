@@ -51,3 +51,7 @@ var Municipio = (module.exports = mongoose.model("municipio", municipioSchema));
 module.exports.get = function (callback, limit) {
   Municipio.find(callback).limit(limit);
 };
+
+module.exports.getRegiones = function (callback) {
+  Municipio.distinct("region", callback);
+};

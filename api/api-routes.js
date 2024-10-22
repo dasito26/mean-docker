@@ -38,11 +38,47 @@ router
   .put(contactController.update)
   .delete(contactController.delete);
 
-var beneficiarioController = require("./controllers/beneficiario.controller");
-
 // beneficiario routes
+var beneficiarioController = require("./controllers/beneficiario.controller");
 router.route("/beneficiarios").post(beneficiarioController.index);
 router.route("/beneficiarios/:page/:limit").post(beneficiarioController.index);
+
+// Area routes
+var catalogosController = require("./controllers/catalogos.controller");
+router.route("/areas").post(catalogosController.areas);
+
+// Distrito routes
+router.route("/distritos").post(catalogosController.distritos);
+
+// Region routes
+router.route("/regiones").post(catalogosController.regiones);
+
+// Programas routes
+router.route("/programas").post(catalogosController.programas);
+router.route("/programas/:area").post(catalogosController.programasArea);
+
+/*
+// Busqueda de beneficiarios
+router
+  .route("/beneficiarios/:area/:page/:limit")
+  .post(beneficiarioController.busquedaSimple);
+router
+  .route(
+    "/beneficiarios/#1/:area/#2/:anio/#3/:programa/#4/:region/#5/:distrito/#6/:municipio/:page/:limit"
+  )
+  .post(beneficiarioController.busquedaAvanzada);
+
+
+
+
+// Municipios routes
+var municipioController = require("./controllers/municipio.controller");
+router.route("/municipios").post(municipioController.index);
+router.route("/municipios/region/:region").post(municipioController.region);
+router
+  .route("/municipios/distrito/:distrito")
+  .post(municipioController.distrito);
+*/
 
 // Export API routes
 module.exports = router;

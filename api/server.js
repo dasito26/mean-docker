@@ -81,7 +81,12 @@ app.use(
       { url: "/index.html", methods: ["GET"] },
       { url: /\.js$/, methods: ["GET"] },
       { url: /\.css$/, methods: ["GET"] },
-      { url: /^\/api\/beneficiarios(.*)$/, methods: ["POST"] }
+      { url: /^\/api\/beneficiarios(.*)$/, methods: ["POST"] },
+      { url: "/api/areas", methods: ["POST"] },
+      { url: "/api/distritos", methods: ["POST"] },
+      { url: "/api/regiones", methods: ["POST"] },
+      { url: /^\/api\/municipios(.*)$/, methods: ["POST"] },
+      { url: /^\/api\/programas(.*)$/, methods: ["POST"] }
     ]
   })
 );
