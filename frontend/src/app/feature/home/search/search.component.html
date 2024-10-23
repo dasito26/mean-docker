@@ -1,31 +1,31 @@
-<form id="busqueda">
+<form (submit)="buscar()" novalidate autocomplete="off" [formGroup]="busquedaForm">
     <div class="row">
         <div class="col-md-6">
-            <select class="form-select" id="area" aria-label="Default select example">
-                <option selected>Selecciona el area ejecutora del cual deseas saber su
+            <select formControlName="area" class="form-select">
+                <option selected value="">Selecciona el area ejecutora del cual deseas saber su
                     información</option>
-                <option value="1">Area 1</option>
-                <option value="2">Area 2</option>
-                <option value="3">Area 3</option>
+                @for (area of areas ; track area._id) {
+                <option [ngValue]="area._id">{{area.nombrecompleto}}</option>
+                }
             </select>
             <div id="emailHelp" class="form-text">Este campo es requerido.</div>
         </div>
         <div class="col-md-3">
-            <button type="submit" for="busqueda" class="btn btn-success">Buscar</button>
+            <button type="submit" class="btn btn-success">Buscar</button>
         </div>
         <div class="col-md-3">
-            <button type="button" class="btn btn-secondary" data-bs-toggle="collapse" data-bs-target="#avanzada"
-                role="button" aria-expanded="false" aria-controls="avanzada">Busqueda avanzada</button>
+            <button type="button" class="btn btn-secondary" (click)="isCollapsed = !isCollapsed"
+                [attr.aria-expanded]="!isCollapsed" aria-controls="avanzada">Busqueda avanzada</button>
         </div>
     </div>
-    <div class="collapse" id="avanzada">
+    <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
         <div class="m-2 card">
             <div class=" card-body">
                 <div class="row">
                     <div class="col-md-4">
-                        <label for="area" class="form-label">Año</label>
-                        <select class="form-select" id="area" aria-label="Default select example">
-                            <option selected>Selecciona</option>
+                        <label for="anio" class="form-label">Año</label>
+                        <select class="form-select" id="anio" formControlName="anio">
+                            <option selected value="">Selecciona</option>
                             <option value="1">2019</option>
                             <option value="2">2020</option>
                             <option value="3">2021</option>
@@ -35,53 +35,41 @@
                         </select>
                     </div>
                     <div class="col-md-8">
-                        <label for="area" class="form-label">Programa</label>
-                        <select class="form-select" id="area" aria-label="Default select example">
-                            <option selected>Selecciona</option>
-                            <option value="1">2019</option>
-                            <option value="2">2020</option>
-                            <option value="3">2021</option>
-                            <option value="4">2022</option>
-                            <option value="5">2023</option>
-                            <option value="6">2024</option>
+                        <label for="programa" class="form-label">Programa</label>
+                        <select class="form-select" id="programa" formControlName="programa">
+                            <option selected value="">Selecciona</option>
+                            @for (programa of programas ; track programa._id) {
+                            <option [value]="programa._id">{{programa.nombre}}</option>
+                            }
                         </select>
                     </div>
                 </div>
                 <div class="row mt-4">
                     <div class="col-md-4">
-                        <label for="area" class="form-label">Región</label>
-                        <select class="form-select" id="area" aria-label="Default select example">
-                            <option selected>Selecciona</option>
-                            <option value="1">2019</option>
-                            <option value="2">2020</option>
-                            <option value="3">2021</option>
-                            <option value="4">2022</option>
-                            <option value="5">2023</option>
-                            <option value="6">2024</option>
+                        <label for="region" class="form-label">Región</label>
+                        <select class="form-select" id="region" formControlName="region">
+                            <option selected value="">Selecciona</option>
+                            @for (region of regiones ; track region._id) {
+                            <option [value]="region.region">{{region.region}}</option>
+                            }
                         </select>
                     </div>
                     <div class="col-md-4">
-                        <label for="area" class="form-label">Distrito</label>
-                        <select class="form-select" id="area" aria-label="Default select example">
-                            <option selected>Selecciona</option>
-                            <option value="1">2019</option>
-                            <option value="2">2020</option>
-                            <option value="3">2021</option>
-                            <option value="4">2022</option>
-                            <option value="5">2023</option>
-                            <option value="6">2024</option>
+                        <label for="distrito" class="form-label">Distrito</label>
+                        <select class="form-select" id="distrito" formControlName="distrito">
+                            <option selected value="">Selecciona</option>
+                            @for (distrito of distritos ; track distrito.id) {
+                            <option [value]="distrito._id">{{distrito.distrito}}</option>
+                            }
                         </select>
                     </div>
                     <div class="col-md-4">
-                        <label for="area" class="form-label">Municipio</label>
-                        <select class="form-select" id="area" aria-label="Default select example">
-                            <option selected>Selecciona</option>
-                            <option value="1">2019</option>
-                            <option value="2">2020</option>
-                            <option value="3">2021</option>
-                            <option value="4">2022</option>
-                            <option value="5">2023</option>
-                            <option value="6">2024</option>
+                        <label for="municipio" class="form-label">Municipio</label>
+                        <select class="form-select" id="municipio" formControlName="municipio">
+                            <option selected value="">Selecciona</option>
+                            @for (municipio of municipios ; track municipio._id) {
+                            <option [value]="municipio._id">{{municipio.nombre}}</option>
+                            }
                         </select>
                     </div>
                 </div>

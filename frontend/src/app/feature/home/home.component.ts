@@ -20,7 +20,7 @@ import { ResultComponent } from "./result/result.component";
     encapsulation: ViewEncapsulation.None,
 })
 export class HomeComponent {
-    name = 'Contacts';
+    name = 'Home';
     angular = environment.angular;
     bootstrap = environment.bootstrap;
     expressjs = environment.expressjs;
