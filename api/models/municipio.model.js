@@ -45,6 +45,10 @@ var municipioSchema = mongoose.Schema({
   region: {
     type: String,
     required: true
+  },
+  distrito: {
+    type: String,
+    required: false
   }
 });
 
@@ -72,18 +76,20 @@ module.exports.getMunicipiosDistritoRegion = function (
       callback
     );
   } else {
-    Distrito.find({
-      distrito: distrito.toString()
-    }).then((distritos) => {
-      let municipios = distritos.map((item) => item.municipio);
+    if (distrito == "29") {
       Municipio.find(
         {
-          _id: {
-            $in: municipios
-          }
+          cve_mpio_full: "30039"
         },
         callback
       );
-    });
+    } else {
+      Municipio.find(
+        {
+          distrito: distrito
+        },
+        callback
+      );
+    }
   }
 };
