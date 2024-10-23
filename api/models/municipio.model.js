@@ -1,4 +1,5 @@
 var mongoose = require("mongoose");
+Distrito = require("../models/distrito.model");
 
 var municipioSchema = mongoose.Schema({
   id: {
@@ -54,4 +55,35 @@ module.exports.get = function (callback, limit) {
 
 module.exports.getRegiones = function (callback) {
   Municipio.distinct("region", callback);
+};
+
+module.exports.getMunicipiosDistritoRegion = function (
+  callback,
+  distrito,
+  region
+) {
+  if (distrito == null && region == null) {
+    Municipio.find(callback);
+  } else if (distrito == null) {
+    Municipio.find(
+      {
+        region: region
+      },
+      callback
+    );
+  } else {
+    Distrito.find({
+      distrito: distrito.toString()
+    }).then((distritos) => {
+      let municipios = distritos.map((item) => item.municipio);
+      Municipio.find(
+        {
+          _id: {
+            $in: municipios
+          }
+        },
+        callback
+      );
+    });
+  }
 };

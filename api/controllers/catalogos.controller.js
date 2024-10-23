@@ -101,3 +101,32 @@ exports.programasArea = function (req, res) {
     return null;
   }, area);
 };
+
+exports.municipios = function (req, res) {
+  if (req.body.distrito && req.body.region) {
+    return res.status(400).json({
+      status: "error",
+      error: "Request Error."
+    });
+  }
+
+  Municipios.getMunicipiosDistritoRegion(
+    function (err, data) {
+      if (err) {
+        res.status(400).json({
+          status: "error",
+          error: "Bad Request."
+        });
+      } else {
+        res.json({
+          status: "success",
+          message: "Users retrieved successfully",
+          data: data
+        });
+      }
+      return null;
+    },
+    req.body.distrito,
+    req.body.region
+  );
+};

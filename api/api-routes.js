@@ -57,6 +57,9 @@ router.route("/regiones").post(catalogosController.regiones);
 router.route("/programas").post(catalogosController.programas);
 router.route("/programas/:area").post(catalogosController.programasArea);
 
+// Municipios routes
+router.route("/municipios").post(catalogosController.municipios);
+
 /*
 // Busqueda de beneficiarios
 router
@@ -71,13 +74,7 @@ router
 
 
 
-// Municipios routes
-var municipioController = require("./controllers/municipio.controller");
-router.route("/municipios").post(municipioController.index);
-router.route("/municipios/region/:region").post(municipioController.region);
-router
-  .route("/municipios/distrito/:distrito")
-  .post(municipioController.distrito);
+
 */
 
 // Export API routes

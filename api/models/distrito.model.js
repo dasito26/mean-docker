@@ -14,7 +14,7 @@ var distritoSchema = mongoose.Schema({
     required: true
   },
   distrito: {
-    type: Number,
+    type: String,
     required: true
   },
   cabecera: {
