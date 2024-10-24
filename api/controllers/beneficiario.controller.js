@@ -1,15 +1,63 @@
 // userController.js
 // Import user model
 Beneficiario = require("../models/beneficiario.model");
+Municipio = require("../models/municipio.model");
+Programa = require("../models/programa.model");
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 // Handle index actions
 
-const environment = require("../config/environment");
-
-exports.index = function (req, res) {
+exports.index = async function (req, res) {
   const page = req.params.page ?? 1;
   const limit = req.params.limit ?? 10;
+
+  // Trabajar el body
+  var query = {};
+
+  //programa y area
+  if (req.body.area != "" && req.body.programa == "") {
+    const programas = await Programa.find({ area: req.body.area });
+    query.programa = { $in: programas.map((p) => p._id) };
+  } else if (req.body.programa != "") {
+    query.programa = req.body.programa;
+  }
+
+  if (req.body.distrito != "" && req.body.region != "") {
+    return res.status(400).json({
+      status: "error",
+      error: "Bad Request."
+    });
+  }
+
+  //distrito y municipio
+  if (req.body.distrito != "" && req.body.municipio == "") {
+    if (req.body.distrito == "29") {
+      query.municipio = "6717ee3070e93cbcef82c128";
+    } else if (req.body.distrito == "11") {
+      query.municipio = "6717ee3070e93cbcef82c1c0";
+    } else if (req.body.distrito == "15") {
+      query.municipio = "6717ee3070e93cbcef82c1be";
+    } else {
+      const municipios = await Municipio.find({ distrito: req.body.distrito });
+      query.municipio = { $in: municipios.map((m) => m._id) };
+    }
+  } else if (req.body.municipio != "") {
+    query.municipio = req.body.municipio;
+  }
+
+  //region
+  if (req.body.region != "" && req.body.municipio == "") {
+    const regiones = await Municipio.find({ region: req.body.region });
+    query.municipio = { $in: regiones.map((p) => p._id) };
+  } else if (req.body.municipio != "") {
+    query.municipio = req.body.municipio;
+  }
+
+  //anio
+  if (req.body.anio != "") {
+    query.ejercicio = req.body.anio;
+  }
+
   Beneficiario.page(
     function (err, beneficiarios) {
       if (err) {
@@ -26,7 +74,8 @@ exports.index = function (req, res) {
       }
     },
     page,
-    limit
+    limit,
+    query
   );
 };
 

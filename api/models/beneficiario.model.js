@@ -1,12 +1,13 @@
 const { path } = require("app-root-path");
 var mongoose = require("mongoose");
 const mongoosePaginate = require("mongoose-paginate-v2");
+//var aggregatePaginate = require("mongoose-aggregate-paginate-v2");
 const Programa = require("./programa.model");
 const Municipio = require("./municipio.model");
 
 var beneficiarioSchema = mongoose.Schema({
   ejercicio: {
-    type: Number,
+    type: String,
     required: true
   },
   nombre: {
@@ -56,6 +57,7 @@ var beneficiarioSchema = mongoose.Schema({
 });
 
 beneficiarioSchema.plugin(mongoosePaginate);
+//beneficiarioSchema.plugin(aggregatePaginate);
 
 var Beneficiario = (module.exports = mongoose.model(
   "beneficiario",
@@ -66,10 +68,10 @@ module.exports.get = function (callback, limit) {
   Beneficiario.find(callback).limit(limit);
 };
 
-module.exports.page = function (callback, page, limit) {
+module.exports.page = function (callback, page, limit, query) {
   var offset = (page - 1) * limit;
   Beneficiario.paginate(
-    {},
+    query,
     {
       offset: offset,
       limit: limit,

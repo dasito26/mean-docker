@@ -1,5 +1,6 @@
 const { response } = require("express");
 var mongoose = require("mongoose");
+const Area = require("./area.model");
 
 var programaSchema = mongoose.Schema({
   id: {
@@ -36,7 +37,7 @@ var programaSchema = mongoose.Schema({
   },
   area: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "area"
+    ref: Area
   }
 });
 
