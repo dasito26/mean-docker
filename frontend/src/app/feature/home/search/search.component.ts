@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { catalogoService } from "../catalogos.service";
 import { NgbCollapseModule } from "@ng-bootstrap/ng-bootstrap";
 import { ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
@@ -61,10 +61,13 @@ export class SearchComponent implements OnInit {
     ];
     municipios: any[];
     municipiosLista: any[];
-    beneficiarios: any[];
 
     isCollapsed = true;
     busquedaForm: UntypedFormGroup;
+
+    //Enviar los datos de los beneficiarios al otro componente
+    @Output()
+    beneficiarios: any[];
 
     constructor(
         private contactService: catalogoService,
