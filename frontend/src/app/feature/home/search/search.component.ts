@@ -4,6 +4,8 @@ import { NgbCollapseModule } from "@ng-bootstrap/ng-bootstrap";
 import { ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
 import { CommonModule } from '@angular/common';
 import { beneficarioService } from "../beneficiarios.service";
+import { DataService } from '../dataTransfer.service';
+import { timeout } from "rxjs";
 
 @Component({
     selector: 'app-search',
@@ -73,6 +75,7 @@ export class SearchComponent implements OnInit {
         private contactService: catalogoService,
         private beneficiarioService: beneficarioService,
         private formBuilder: UntypedFormBuilder,
+        private dataService: DataService,
     ) {
         this.busquedaForm = this.createForm();
     }
@@ -98,6 +101,7 @@ export class SearchComponent implements OnInit {
             (data) => {
                 this.beneficiarios = data;
                 console.log(data);
+                this.enviarDatosAlResult();
             }
         );
     }
@@ -157,5 +161,9 @@ export class SearchComponent implements OnInit {
 
     ngOnInit(): void {
         this.getAll();
+    }
+
+    enviarDatosAlResult() {
+        this.dataService.enviarDatos(this.beneficiarios);
     }
 }
