@@ -1,17 +1,21 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { catalogoService } from "../catalogos.service";
 import { NgbCollapseModule } from "@ng-bootstrap/ng-bootstrap";
 import { ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
-import { CommonModule } from '@angular/common';
+import { CommonModule, DecimalPipe } from '@angular/common';
 import { beneficarioService } from "../beneficiarios.service";
 import { DataService } from '../dataTransfer.service';
-import { timeout } from "rxjs";
+import { empty, timeout } from "rxjs";
+import { Beneficiario } from "../result/beneficiario";
+import { FormsModule } from '@angular/forms';
+import { NgbPaginationModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
     selector: 'app-search',
     standalone: true,
     templateUrl: './search.component.html',
-    imports: [NgbCollapseModule, ReactiveFormsModule, CommonModule],
+    imports: [NgbCollapseModule, ReactiveFormsModule, FormsModule, CommonModule, NgbPaginationModule, NgbTypeaheadModule, DecimalPipe],
 })
 
 export class SearchComponent implements OnInit {
@@ -65,11 +69,14 @@ export class SearchComponent implements OnInit {
     municipiosLista: any[];
 
     isCollapsed = true;
+    isCollapsedTabla = true;
     busquedaForm: UntypedFormGroup;
 
-    //Enviar los datos de los beneficiarios al otro componente
-    @Output()
-    beneficiarios: any[];
+    beneficiarios: Beneficiario[] = [];
+
+    page: number = 1;
+    pageSize: number = 10;
+    collectionSize: number = 0;
 
     constructor(
         private contactService: catalogoService,
@@ -88,6 +95,9 @@ export class SearchComponent implements OnInit {
         );
     }
 
+    @ViewChild('aviso') aviso: any;
+    @ViewChild('resultados') resultados: any;
+
     getMunicipios(_distrito: string, _region: string): void {
         this.contactService.getMunicipios(_distrito, _region).subscribe(
             (data) => {
@@ -97,11 +107,31 @@ export class SearchComponent implements OnInit {
     }
 
     buscar(): void {
+        this.aviso.nativeElement.style.display = 'none';
+        this.isCollapsed = true;
+        this.isCollapsedTabla = false;
+
         this.beneficiarioService.getBeneficiarios(this.busquedaForm.value).subscribe(
             (data) => {
-                this.beneficiarios = data;
+                this.beneficiarios = data.docs;
+                this.page = data.page;
+                this.pageSize = data.limit;
+                this.collectionSize = data.totalDocs;
                 console.log(data);
-                this.enviarDatosAlResult();
+                //this.enviarDatosAlResult();
+            }
+        );
+    }
+
+    refreshBeneficiarios() {
+        this.beneficiarioService.getBeneficiarios(this.busquedaForm.value, this.page, this.pageSize).subscribe(
+            (data) => {
+                this.beneficiarios = data.docs;
+                this.page = data.page;
+                this.pageSize = data.limit;
+                this.collectionSize = data.totalDocs;
+                console.log(data);
+                //this.enviarDatosAlResult();
             }
         );
     }
@@ -161,6 +191,34 @@ export class SearchComponent implements OnInit {
 
     ngOnInit(): void {
         this.getAll();
+        this.busquedaForm.valueChanges.subscribe(() => {
+            this.formularioCabiado();
+        });
+    }
+
+    formularioCabiado(): void {
+        this.isCollapsedTabla = true;
+        setTimeout(() => {
+            this.beneficiarios = [];
+            this.aviso.nativeElement.style.display = 'block';
+        }, 500);
+
+    }
+
+    limpiarFormulario(): void {
+        this.busquedaForm.reset({
+            area: '',
+            anio: '',
+            programa: '',
+            region: '',
+            distrito: '',
+            municipio: '',
+        });
+        this.isCollapsedTabla = true;
+        setTimeout(() => {
+            this.beneficiarios = [];
+            this.aviso.nativeElement.style.display = 'block';
+        }, 500);
     }
 
     enviarDatosAlResult() {

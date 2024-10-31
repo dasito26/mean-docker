@@ -1,4 +1,4 @@
-<div class="col-md-12 text-center m-5">
+<div class="col-md-12 text-center my-5">
     <h1>PUB Consulta</h1>
 </div>
 <form (submit)="buscar()" novalidate autocomplete="off" [formGroup]="busquedaForm">
@@ -13,12 +13,15 @@
             </select>
             <div id="emailHelp" class="form-text">Este campo es requerido.</div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-1">
             <button type="submit" class="btn btn-success">Buscar</button>
         </div>
         <div class="col-md-3">
             <button type="button" class="btn btn-secondary" (click)="isCollapsed = !isCollapsed"
                 [attr.aria-expanded]="!isCollapsed" aria-controls="avanzada">Busqueda avanzada</button>
+        </div>
+        <div class="col-md-2">
+            <button type="button" class="btn btn-primary " (click)="limpiarFormulario()">Limpiar</button>
         </div>
     </div>
     <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
@@ -80,3 +83,65 @@
         </div>
     </div>
 </form>
+
+<div class="col-md-12 text-center my-5">
+    <h1>Resultados</h1>
+</div>
+<div #aviso class="text-center">
+    <p style="margin-top: -40px;">Haga una consulta con el formulario de arriba, y aquí aparecerán los resultados.</p>
+</div>
+<div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsedTabla">
+    <div class="m-2 card">
+        <div class=" card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Primer apellido</th>
+                        <th scope="col">Segundo apellido</th>
+                        <th scope="col">Municipio</th>
+                        <th scope="col">Edad</th>
+                        <th scope="col">Sexo</th>
+                        <th scope="col">Ejercicio</th>
+                        <th scope="col">Programa</th>
+                        <th scope="col">Monto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (beneficiario of beneficiarios; track beneficiario._id; let i = $index) {
+                    <tr>
+                        <th scope="row">{{ i + 1 }}</th>
+                        <td> {{ beneficiario.nombre }} </td>
+                        <td>{{ beneficiario.papellido }}</td>
+                        <td>{{ beneficiario.sapellido }}</td>
+                        <td>{{ beneficiario.municipio.nombre }}</td>
+                        <td>{{ beneficiario.edad }}</td>
+                        <td>{{ beneficiario.sexo }}</td>
+                        <td>{{ beneficiario.ejercicio }}</td>
+                        <td>{{ beneficiario.programa.nombre }}</td>
+                        <td>{{ beneficiario.monto }}</td>
+                    </tr>
+                    } @empty {
+                    <tr>
+                        <td colspan="10" class="text-center">No se encontraron resultados</td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="d-flex justify-content-between p-2">
+                <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize" [maxSize]="10"
+                    (pageChange)="refreshBeneficiarios()">
+                </ngb-pagination>
+
+                <select class="form-select" style="width: auto" [(ngModel)]="pageSize"
+                    (ngModelChange)="refreshBeneficiarios()">
+                    <option [ngValue]="10">10 filas por página</option>
+                    <option [ngValue]="20">20 filas por página</option>
+                    <option [ngValue]="50">50 filas por página</option>
+                    <option [ngValue]="100">100 filas por página</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
